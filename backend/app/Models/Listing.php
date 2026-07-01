@@ -19,7 +19,6 @@ class Listing extends Model
         'quantity_available',
         'quantity_reserved',
         'status',
-        'deleted_at',
     ];
 
     protected $casts = [

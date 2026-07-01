@@ -13,7 +13,7 @@ return new class extends Migration
 
             // Tied to phone, not user_id, since an OTP is sent before a user
             // necessarily exists (registration flow).
-            $table->string('phone', 20);
+            $table->string('phone', 13);
             $table->string('code'); // store hashed, never plaintext
             $table->enum('purpose', ['registration', 'login'])->default('login');
 

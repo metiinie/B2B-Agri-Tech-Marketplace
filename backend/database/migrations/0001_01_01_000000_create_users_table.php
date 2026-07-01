@@ -14,7 +14,7 @@ return new class extends Migration
 
             // Phone is the primary identity/login credential (doc: "Phone-based
             // registration and OTP login").
-            $table->string('phone', 20)->unique();
+            $table->string('phone', 13)->unique();
             $table->timestamp('phone_verified_at')->nullable();
 
             $table->string('email')->nullable()->unique();
