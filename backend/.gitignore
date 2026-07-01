@@ -3,7 +3,6 @@
 .env
 .env.backup
 .env.production
-/app/Providers/AppServiceProvider.php
 .phpactor.json
 .phpunit.result.cache
 /.codex
