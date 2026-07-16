@@ -23,7 +23,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('first_name')->nullable(false)->change();
             $table->string('second_name')->nullable(false)->change();
-            $table->string('name')->nullable()->change();
             $table->string('password')->nullable(false)->change();
         });
     }
