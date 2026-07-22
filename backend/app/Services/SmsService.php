@@ -19,9 +19,11 @@ class SmsService
     public function send(string $msisdn, string $text): bool
     {
         try {
-            $response = Http::withHeaders([
-                'KEY' => config('services.sms_ethiopia.key'),
-                'Content-Type' => 'application/json',
+
+           $response = Http::withoutVerifying()
+    ->withHeaders([
+        'KEY' => config('services.sms_ethiopia.key'),
+        'Content-Type' => 'application/json',
             ])
                 ->timeout(10)
                 ->post(config('services.sms_ethiopia.base_url') . '/sms/send', [
@@ -39,7 +41,7 @@ class SmsService
                 return false;
             }
 
-            return $response->json('status') === 'success';
+            return $response->json('sent') === true;
         } catch (\Throwable $e) {
             Log::error('SMS Ethiopia send exception', [
                 'message' => $e->getMessage(),
