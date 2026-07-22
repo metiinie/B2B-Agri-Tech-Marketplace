@@ -21,7 +21,7 @@ class OtpService
      * - On SMS failure: deletes the row and throws SmsDeliveryException (Option A).
      *
      * @throws SmsDeliveryException
-     */
+     */////////////
     public function generate(string $phone, string $purpose = 'login'): void
     {
         // Invalidate any previous unconsumed OTPs for this phone + purpose
