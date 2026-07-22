@@ -52,7 +52,7 @@ class AuthController extends Controller
         $phone = $request->validated('phone');
         $code  = $request->validated('code');
 
-        $valid = $this->otpService->verify($phone, $code, 'registration');
+        $valid = $this->otpService->verify($phone, $code, 'registration'); /////code verification/////
 
         if (! $valid) {
             return response()->json([
