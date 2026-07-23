@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CapabilityApplicationController;
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 ///// Authcontroller /////////
@@ -33,4 +34,24 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     Route::get('/capability-applications',              [CapabilityApplicationController::class, 'index']);
     Route::post('/capability-applications/{id}/approve', [CapabilityApplicationController::class, 'approve']);
     Route::post('/capability-applications/{id}/reject',  [CapabilityApplicationController::class, 'reject']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Listings — Public (browse & search)
+|--------------------------------------------------------------------------
+*/
+Route::get('/listings',      [ListingController::class, 'index']);
+Route::get('/listings/{id}', [ListingController::class, 'show']);
+
+/*
+|--------------------------------------------------------------------------
+| Listings — Farmer (authenticated, requires farmer capability)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/listings/my',        [ListingController::class, 'my']);
+    Route::post('/listings',          [ListingController::class, 'store']);
+    Route::put('/listings/{id}',      [ListingController::class, 'update']);
+    Route::delete('/listings/{id}',   [ListingController::class, 'destroy']);
 });
