@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CapabilityApplicationController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,3 +46,14 @@ Route::middleware('auth:sanctum')->group(function () {
 //////Listings — Public (browse & search)/////
 Route::get('/listings',      [ListingController::class, 'index']);
 Route::get('/listings/{id}', [ListingController::class, 'show']);
+
+////// Cart — Buyer (authenticated, requires buyer capability) /////
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/cart',          [CartController::class, 'index']);
+    Route::post('/cart',         [CartController::class, 'store']);
+    Route::put('/cart/{id}',     [CartController::class, 'update']);
+    Route::delete('/cart/clear', [CartController::class, 'clear']);
+    Route::delete('/cart/{id}',  [CartController::class, 'destroy']);
+});
+
