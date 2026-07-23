@@ -94,7 +94,7 @@ class CapabilityApplicationController extends Controller
         $application = CapabilityApplication::with(['user:id,first_name,second_name,phone', 'reviewer:id,first_name,second_name'])
             ->findOrFail($id);
 
-        // Non-admin users can only view their own applications.
+        /////// Non-admin users can only view their own applications./////////
         if (! $user->is_admin && $application->user_id !== $user->id) {
             return response()->json([
                 'message' => 'You are not authorized to view this application.',
