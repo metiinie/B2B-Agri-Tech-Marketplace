@@ -162,6 +162,8 @@
                 title="Report Quality/Delivery Issue">
                 <AlertTriangle class="w-3.5 h-3.5" />
                 <span>Dispute Escrow</span>
+              </button>
+
               <div v-else-if="['pending_payment', 'awaiting_buyer_payment', 'accepted', 'placed', 'pending_farmer_approval'].includes(order.status)" class="flex items-center gap-1.5 shrink-0">
                 <!-- Delete Action -->
                 <button @click="handleDeleteOrder(order)" class="p-2 text-rose-400 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-900/40 rounded-xl transition-colors cursor-pointer" title="Cancel/Delete Order">
