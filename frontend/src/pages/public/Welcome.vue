@@ -8,9 +8,9 @@
         </div>
         
         <div class="hidden md:flex items-center gap-8">
-          <a href="#marketplace" class="text-sm font-semibold text-slate-600 hover:text-[#0B57D0] dark:text-slate-400 dark:hover:text-blue-400 transition-colors">Marketplace</a>
-          <a href="#features" class="text-sm font-semibold text-slate-600 hover:text-[#0B57D0] dark:text-slate-400 dark:hover:text-blue-400 transition-colors">Features</a>
-          <a href="#how-it-works" class="text-sm font-semibold text-slate-600 hover:text-[#0B57D0] dark:text-slate-400 dark:hover:text-blue-400 transition-colors">How it Works</a>
+          <a href="#marketplace" class="text-sm font-semibold text-slate-600 hover:text-[#0B57D0] dark:text-slate-400 dark:hover:text-blue-400 transition-colors">{{ $t('landing.navMarketplace') }}</a>
+          <a href="#features" class="text-sm font-semibold text-slate-600 hover:text-[#0B57D0] dark:text-slate-400 dark:hover:text-blue-400 transition-colors">{{ $t('landing.navFeatures') }}</a>
+          <a href="#how-it-works" class="text-sm font-semibold text-slate-600 hover:text-[#0B57D0] dark:text-slate-400 dark:hover:text-blue-400 transition-colors">{{ $t('landing.navHowItWorks') }}</a>
         </div>
 
         <div class="flex items-center gap-4">
@@ -18,14 +18,14 @@
           <LanguageToggle />
           <template v-if="token">
             <router-link :to="dashboardRoute" class="text-sm font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-full hover:bg-[#0B57D0] dark:hover:bg-blue-500 hover:text-white transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 duration-300 flex items-center gap-2">
-              Go to Dashboard
+              {{ $t('landing.navGoToDashboard') }}
               <ArrowRight class="w-4 h-4" />
             </router-link>
           </template>
           <template v-else>
-            <router-link to="/login" class="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#0B57D0] dark:hover:text-blue-400 transition-colors">Sign In</router-link>
+            <router-link to="/login" class="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#0B57D0] dark:hover:text-blue-400 transition-colors">{{ $t('landing.navSignIn') }}</router-link>
             <router-link to="/register" class="text-sm font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-full hover:bg-[#0B57D0] dark:hover:bg-blue-500 hover:text-white dark:hover:text-white transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 duration-300">
-              Get Started
+              {{ $t('landing.navGetStarted') }}
             </router-link>
           </template>
         </div>
@@ -41,30 +41,30 @@
       <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
         
         <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6 animate-fade-in-up animation-delay-100">
-          The Premier <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0B57D0] to-teal-400">B2B Marketplace</span><br />
-          for Ethiopian Agriculture
+          {{ $t('landing.heroMainTitle1') }}<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0B57D0] to-teal-400">{{ $t('landing.heroMainTitle2') }}</span><br />
+          {{ $t('landing.heroMainTitle3') }}
         </h1>
         
         <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-medium animate-fade-in-up animation-delay-200">
-          Connect directly with verified farmers and rural cooperatives. Secure escrows, seamless logistics, and transparent pricing for modern agri-business.
+          {{ $t('landing.heroSubtitle') }}
         </p>
         
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animation-delay-300">
           <template v-if="token">
             <router-link :to="dashboardRoute" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#0B57D0] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group">
-              Access Dashboard
+              {{ $t('landing.heroAccessDashboard') }}
               <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </router-link>
           </template>
           <template v-else>
             <router-link to="/register" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#0B57D0] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group">
-              Start Trading Now
+              {{ $t('landing.heroStartTrading') }}
               <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </router-link>
           </template>
           
           <a href="#features" class="w-full sm:w-auto px-8 py-4 bg-white dark:bg-[#161B22] text-slate-700 dark:text-slate-200 rounded-2xl font-bold shadow-md hover:shadow-lg hover:-translate-y-1 border border-slate-200 dark:border-slate-800 transition-all duration-300 flex items-center justify-center gap-2">
-            Explore Features
+            {{ $t('landing.heroExploreFeatures') }}
           </a>
         </div>
       </div>
@@ -74,8 +74,8 @@
     <section id="marketplace" class="py-24 bg-slate-50 dark:bg-[#0D1117] relative border-t border-slate-200/50 dark:border-slate-800/50">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">Explore Marketplace</h2>
-          <p class="text-slate-600 dark:text-slate-400 text-lg font-medium">Find premium agricultural products delivered direct from verified farmers. Log in to explore the journey and purchase.</p>
+          <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">{{ $t('landing.marketTitle') }}</h2>
+          <p class="text-slate-600 dark:text-slate-400 text-lg font-medium">{{ $t('landing.marketSubtitle') }}</p>
         </div>
         
         <div v-if="isLoadingListings" class="flex justify-center p-12">
@@ -86,11 +86,11 @@
         </div>
         <div v-else class="text-center py-12 bg-white dark:bg-[#161B22] rounded-3xl border border-slate-200 dark:border-slate-800">
            <Sprout class="w-12 h-12 text-slate-400 mx-auto mb-4" />
-           <p class="text-slate-600 dark:text-slate-400 font-bold text-lg">No listings available at the moment.</p>
+           <p class="text-slate-600 dark:text-slate-400 font-bold text-lg">{{ $t('landing.marketNoListings') }}</p>
         </div>
 
         <div class="text-center mt-12">
-           <button @click="requireLogin" class="bg-[#0B57D0] hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-xl transition-colors shadow-lg shadow-blue-500/30">Sign In to View All</button>
+           <button @click="requireLogin" class="bg-[#0B57D0] hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-xl transition-colors shadow-lg shadow-blue-500/30">{{ $t('landing.marketSignInToViewAll') }}</button>
         </div>
       </div>
     </section>
@@ -99,8 +99,8 @@
     <section id="features" class="py-24 bg-white dark:bg-[#161B22] relative border-y border-slate-200/50 dark:border-slate-800/50">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">Engineered for Reliability</h2>
-          <p class="text-slate-600 dark:text-slate-400 text-lg font-medium">Everything you need to source agricultural products with confidence.</p>
+          <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">{{ $t('landing.featTitle') }}</h2>
+          <p class="text-slate-600 dark:text-slate-400 text-lg font-medium">{{ $t('landing.featSubtitle') }}</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
@@ -109,9 +109,9 @@
             <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-6 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300">
               <ShieldCheck class="w-7 h-7" />
             </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Secure Escrow Payments</h3>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{{ $t('landing.feat1Title') }}</h3>
             <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
-              Funds are held securely in escrow via Chapa until the buyer verifies the delivery using a secure 1-time PIN.
+              {{ $t('landing.feat1Desc') }}
             </p>
           </div>
 
@@ -120,9 +120,9 @@
             <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-300">
               <Leaf class="w-7 h-7" />
             </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Direct from Farmers</h3>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{{ $t('landing.feat2Title') }}</h3>
             <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
-              Bypass middlemen. Source high-quality produce directly from verified farmers and primary union cooperatives.
+              {{ $t('landing.feat2Desc') }}
             </p>
           </div>
 
@@ -131,9 +131,9 @@
             <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-6 text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform duration-300">
               <LineChart class="w-7 h-7" />
             </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Transparent Analytics</h3>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{{ $t('landing.feat3Title') }}</h3>
             <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
-              Access real-time market data, transparent transaction histories, and streamlined dispute resolution processes.
+              {{ $t('landing.feat3Desc') }}
             </p>
           </div>
         </div>
@@ -144,28 +144,28 @@
     <section id="how-it-works" class="py-24 bg-slate-50 dark:bg-[#0D1117] relative">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">How It Works</h2>
+          <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">{{ $t('landing.howItWorksTitle') }}</h2>
         </div>
         <div class="grid md:grid-cols-4 gap-6 text-center">
           <div class="relative">
             <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-2xl font-black flex items-center justify-center mx-auto mb-4 z-10 relative">1</div>
-            <h4 class="font-bold text-slate-900 dark:text-white mb-2">Register</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Join as a Buyer, Farmer, or Transporter</p>
+            <h4 class="font-bold text-slate-900 dark:text-white mb-2">{{ $t('landing.how1Title') }}</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">{{ $t('landing.how1Desc') }}</p>
           </div>
           <div class="relative">
             <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-2xl font-black flex items-center justify-center mx-auto mb-4 z-10 relative">2</div>
-            <h4 class="font-bold text-slate-900 dark:text-white mb-2">Connect</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Find products or list your harvest</p>
+            <h4 class="font-bold text-slate-900 dark:text-white mb-2">{{ $t('landing.how2Title') }}</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">{{ $t('landing.how2Desc') }}</p>
           </div>
           <div class="relative">
             <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-2xl font-black flex items-center justify-center mx-auto mb-4 z-10 relative">3</div>
-            <h4 class="font-bold text-slate-900 dark:text-white mb-2">Transact</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Secure payments in Escrow</p>
+            <h4 class="font-bold text-slate-900 dark:text-white mb-2">{{ $t('landing.how3Title') }}</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">{{ $t('landing.how3Desc') }}</p>
           </div>
           <div class="relative">
             <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-2xl font-black flex items-center justify-center mx-auto mb-4 z-10 relative">4</div>
-            <h4 class="font-bold text-slate-900 dark:text-white mb-2">Deliver</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Confirm delivery with 1-time PIN</p>
+            <h4 class="font-bold text-slate-900 dark:text-white mb-2">{{ $t('landing.how4Title') }}</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">{{ $t('landing.how4Desc') }}</p>
           </div>
         </div>
       </div>
@@ -175,19 +175,19 @@
     <footer class="py-20 relative overflow-hidden">
       <div class="absolute inset-0 bg-[#0B57D0] dark:bg-blue-900/90 transform -skew-y-2 scale-110 z-0 origin-top-left"></div>
       <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
-        <h2 class="text-4xl font-black text-white mb-6">Ready to Modernize Your Supply Chain?</h2>
+        <h2 class="text-4xl font-black text-white mb-6">{{ $t('landing.footerTitle') }}</h2>
         <p class="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">
-          Join thousands of buyers and farmers actively trading on Ethiopia's most secure B2B agri-marketplace.
+          {{ $t('landing.footerDesc') }}
         </p>
         <template v-if="!token">
           <router-link to="/register" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0B57D0] rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-            Create Free Account
+            {{ $t('landing.footerCreateAccount') }}
             <UserPlus class="w-5 h-5" />
           </router-link>
         </template>
         <template v-else>
           <router-link :to="dashboardRoute" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0B57D0] rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-            Go to Dashboard
+            {{ $t('landing.footerGoToDashboard') }}
             <ArrowRight class="w-5 h-5" />
           </router-link>
         </template>
