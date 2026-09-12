@@ -6,7 +6,10 @@
       
       <div class="p-6 md:p-8 space-y-6">
         <!-- Top Navigation Bar: Back Button (Top-Left) & Color Dots (Top-Right) -->
-        <div class="flex items-center justify-end -mt-1 -mb-1">
+        <div class="flex items-center justify-between -mt-1 -mb-1">
+          <button @click="$router.push('/')" class="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-[#21262D] text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#30363D] transition-colors cursor-pointer" title="Go Back">
+            <ArrowLeft class="w-4 h-4" />
+          </button>
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-[#0B57D0]" />
             <span class="w-2.5 h-2.5 rounded-full bg-[#F3A712]" />
@@ -383,7 +386,7 @@ import { ref, watch, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { 
   CheckCircle2, Tractor, ShoppingBag, ArrowRight, 
-  Loader2, AlertCircle, Phone, ShieldCheck, KeyRound 
+  Loader2, AlertCircle, Phone, ShieldCheck, KeyRound, ArrowLeft 
 } from 'lucide-vue-next'
 import { useAuth } from '@/composables/useAuth'
 import QelemMedaLogo from '@/components/common/QelemMedaLogo.vue'
