@@ -164,12 +164,12 @@ const statusBadgeClass = (status) => {
 const fetchData = async (page = 1) => {
   isLoading.value = true
   try {
-    const summaryRes = await api.getPayoutSummary()
+    const summaryRes = await api.fetchPayoutSummary()
     if (summaryRes?.summary) {
       summary.value = summaryRes.summary
     }
 
-    const res = await api.getPayouts(page)
+    const res = await api.fetchPayouts(page)
     if (res?.data) {
       payouts.value = res.data
       currentPage.value = res.meta?.current_page || 1

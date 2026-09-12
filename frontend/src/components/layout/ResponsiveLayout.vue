@@ -60,18 +60,12 @@
 
         <!-- Profile Trigger -->
         <button @click="isProfileMenuOpen = !isProfileMenuOpen"
-          :class="['flex items-center gap-3 px-3 py-1.5 rounded-2xl border transition-all duration-200 shadow-xs cursor-pointer',
-            isFarmerTheme ? 'bg-white/10 hover:bg-white/20 border-white/20 text-white' : 'bg-gray-50 dark:bg-[#21262D] hover:bg-gray-100 dark:hover:bg-[#30363D] border-gray-200 dark:border-[#30363D] text-[#1E2328] dark:text-[#F0F6FC]']">
-          <div class="w-8 h-8 rounded-full bg-[#1E9444] text-white flex items-center justify-center text-xs font-extrabold shadow-sm border border-white/30 shrink-0">
+          :class="['flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-200 shadow-xs cursor-pointer p-0 overflow-hidden',
+            isFarmerTheme ? 'border-white/30 hover:border-white text-white' : 'border-gray-300 dark:border-[#30363D] hover:border-[#1E9444] dark:hover:border-[#34D399] text-[#1E2328] dark:text-[#F0F6FC]']">
+          <img v-if="user?.avatar" :src="user?.avatar" alt="Profile avatar" class="w-full h-full object-cover shrink-0" />
+          <div v-else class="w-full h-full bg-[#1E9444] text-white flex items-center justify-center text-sm font-extrabold shrink-0">
             {{ user?.name?.[0] || 'U' }}
           </div>
-          <div class="text-left leading-tight hidden sm:block">
-            <span class="text-[13px] font-extrabold block tracking-tight">{{ user?.name || 'User' }}</span>
-            <span :class="['text-[10px] font-semibold block capitalize', isFarmerTheme ? 'text-[#C3EFCF]' : 'text-[#5A6270] dark:text-[#8B949E]']">
-              {{ roleTitle }}
-            </span>
-          </div>
-          <ChevronDown :class="['w-4 h-4 transition-transform duration-200 shrink-0', isProfileMenuOpen ? 'rotate-180 text-[#1E9444]' : 'opacity-70']" />
         </button>
 
         <!-- Dropdown Popover -->
@@ -80,8 +74,9 @@
             <div class="absolute -top-1.5 right-6 w-3 h-3 bg-white dark:bg-[#161B22] border-t border-l border-[#E2E4E7] dark:border-[#30363D] rotate-45" />
             <div class="p-3 bg-gradient-to-r from-[#EDFAF2] to-emerald-50 dark:from-[#062E15] dark:to-[#042611] rounded-xl mb-1.5 border border-[#C3EFCF] dark:border-[#1E9444]/40">
               <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-full bg-[#1E9444] text-white flex items-center justify-center text-sm font-bold shadow-xs">
-                  {{ user?.name?.[0] || 'U' }}
+                <div class="w-9 h-9 rounded-full bg-[#1E9444] text-white flex items-center justify-center text-sm font-bold shadow-xs overflow-hidden shrink-0">
+                  <img v-if="user?.avatar" :src="user?.avatar" alt="Profile" class="w-full h-full object-cover shrink-0" />
+                  <span v-else>{{ user?.name?.[0] || 'U' }}</span>
                 </div>
                 <div class="overflow-hidden">
                   <h4 class="text-xs font-extrabold text-[#0F5C2A] dark:text-[#34D399] truncate">{{ user?.name || 'User' }}</h4>

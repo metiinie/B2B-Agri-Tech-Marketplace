@@ -197,8 +197,8 @@ export const api = {
         return request('/payouts/summary')
     },
 
-    async fetchPayouts() {
-        return request('/payouts')
+    async fetchPayouts(page = 1) {
+        return request(`/payouts?page=${page}`)
     },
 
     async createPaymentException(data) {

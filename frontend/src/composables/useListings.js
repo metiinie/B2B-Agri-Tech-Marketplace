@@ -325,17 +325,44 @@ export function useListings() {
 
     const updateListing = async (id, updatedData) => {
         const token = getAuthToken()
+
+        const filesToUpload = updatedData.rawFiles || []
+        const hasFiles = filesToUpload.length > 0
+
         if (token) {
             try {
-                const payload = {
-                    title: updatedData.cropName,
-                    quality_grade: updatedData.grade,
-                    region: updatedData.region,
-                    zone: updatedData.zone,
-                    quantity_available: updatedData.availableQty,
-                    price_per_unit: updatedData.pricePerKg,
-                    description: updatedData.description,
+                let payload
+
+                if (hasFiles) {
+                    payload = new FormData()
+                    payload.append('_method', 'PUT') // Fix for Laravel multipart form-data
+                    if (updatedData.cropName) payload.append('title', updatedData.cropName)
+                    if (updatedData.grade) payload.append('quality_grade', updatedData.grade)
+                    if (updatedData.region) payload.append('region', updatedData.region)
+                    if (updatedData.zone) payload.append('zone', updatedData.zone)
+                    if (updatedData.availableQty) payload.append('quantity_available', updatedData.availableQty)
+                    if (updatedData.pricePerKg) payload.append('price_per_unit', updatedData.pricePerKg)
+                    if (updatedData.description) payload.append('description', updatedData.description)
+                    if (updatedData.category) {
+                        const catId = { 'grains': 1, 'oilseeds': 2, 'coffee': 3, 'vegetables': 4, 'fruits': 5, 'spices': 8 }[updatedData.category] || 1
+                        payload.append('category_id', catId)
+                    }
+
+                    filesToUpload.forEach((file) => {
+                        payload.append('images[]', file)
+                    })
+                } else {
+                    payload = {
+                        title: updatedData.cropName,
+                        quality_grade: updatedData.grade,
+                        region: updatedData.region,
+                        zone: updatedData.zone,
+                        quantity_available: updatedData.availableQty,
+                        price_per_unit: updatedData.pricePerKg,
+                        description: updatedData.description,
+                    }
                 }
+
                 const res = await api.updateListing(id, payload)
                 const rawObj = res?.listing || res?.data || res
                 if (rawObj && typeof rawObj === 'object') {
@@ -364,6 +391,10 @@ export function useListings() {
                 availableQty: updatedData.availableQty ?? listings.value[idx].availableQty,
                 pricePerKg: updatedData.pricePerKg ?? listings.value[idx].pricePerKg,
                 description: updatedData.description ?? listings.value[idx].description,
+            }
+            if (updatedData.images && updatedData.images.length > 0) {
+                listings.value[idx].images = updatedData.images
+                listings.value[idx].primaryImage = updatedData.images[0]
             }
             return listings.value[idx]
         }

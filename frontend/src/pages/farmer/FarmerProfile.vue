@@ -6,52 +6,52 @@
       </button>
       <span class="text-xs font-bold text-[#5A6270] dark:text-[#8B949E] uppercase tracking-wider">{{ $t('Back') }}</span>
     </div>
-    <!-- Top Header Banner -->
-    <div class="bg-gradient-to-r from-[#062E15] via-[#0F5C2A] to-[#0B57D0] text-white p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#E69500]/20 rounded-full blur-2xl pointer-events-none" />
+    <!-- Top Header Banner (Telegram-style UX) -->
+    <div class="bg-gradient-to-br from-[#062E15] via-[#0F5C2A] to-[#0B57D0] text-white pt-10 pb-8 px-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col items-center text-center gap-4">
+      <div class="absolute -top-10 right-10 w-48 h-48 bg-[#E69500]/25 rounded-full blur-3xl pointer-events-none" />
+      <div class="absolute bottom-0 left-10 w-48 h-48 bg-[#1E9444]/30 rounded-full blur-3xl pointer-events-none" />
       
-      <div class="flex items-center gap-4 relative z-10">
-        <!-- Interactive Avatar upload / display -->
-        <div class="relative group cursor-pointer" @click="triggerPhotoUpload">
-          <div v-if="customPhotoUrl || farmer?.avatar" class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md">
-            <img :src="customPhotoUrl || farmer?.avatar" alt="Profile" class="w-full h-full object-cover" />
-          </div>
-          <div v-else class="w-16 h-16 rounded-full bg-white/20 border-2 border-white flex items-center justify-center text-3xl font-black text-white shrink-0 shadow-md">
-            {{ farmer?.name?.[0] || 'D' }}
-          </div>
-          <div class="absolute inset-0 bg-black/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-            <Camera class="w-4 h-4" />
-          </div>
+      <!-- Interactive Avatar upload / display -->
+      <div class="relative group cursor-pointer z-10" @click="triggerPhotoUpload" title="Update Profile Photo">
+        <div v-if="customPhotoUrl || farmer?.avatar" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-[#062E15] transition-transform duration-300 group-hover:scale-105">
+          <img :src="customPhotoUrl || farmer?.avatar" alt="Profile" class="w-full h-full object-cover" />
         </div>
-        <input type="file" ref="fileInput" accept="image/*" class="hidden" @change="handlePhotoChange" />
+        <div v-else class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-white/10 backdrop-blur-md border-4 border-white/50 hover:border-white flex items-center justify-center text-5xl font-black text-white shadow-xl transition-all duration-300 group-hover:scale-105">
+          {{ farmer?.name?.[0] || 'D' }}
+        </div>
+        
+        <!-- Telegram style floating camera badge -->
+        <div class="absolute bottom-1 right-1 w-9 h-9 sm:w-10 sm:h-10 bg-[#1E9444] border-[3px] border-white rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110 group-hover:bg-[#0F5C2A]">
+          <Camera class="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+        </div>
+      </div>
+      <input type="file" ref="fileInput" accept="image/*" class="hidden" @change="handlePhotoChange" />
 
-        <div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">{{ farmer?.name || 'Dawit Bekele' }}</h1>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-400 text-amber-950 flex items-center gap-1 shadow-2xs">
-              <ShieldCheck class="w-3 h-3" />
-              <span>{{ $t('badges.verifiedProducer') }}</span>
-            </span>
-          </div>
-          <p class="text-xs text-[#C3EFCF] mt-0.5 font-medium flex items-center gap-1.5 flex-wrap">
-            <span>{{ $t(farmer?.region) || 'Sidama' }} {{ $t('farmer.regionMember') }}</span>
-            <span>•</span>
-            <span>{{ farmer?.phone || $t('No phone set') }}</span>
-          </p>
+      <div class="relative z-10 space-y-1 mt-1">
+        <div class="flex items-center justify-center gap-2 flex-wrap">
+          <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">{{ farmer?.name || 'Dawit Bekele' }}</h1>
+          <span class="px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-extrabold bg-amber-400 text-amber-950 flex items-center gap-1 shadow-xs">
+            <ShieldCheck class="w-3.5 h-3.5" />
+            <span>{{ $t('badges.verifiedProducer') }}</span>
+          </span>
         </div>
+        <p class="text-sm text-[#C3EFCF] font-medium flex items-center justify-center gap-2 flex-wrap opacity-90">
+          <span>{{ $t(farmer?.region) || 'Sidama' }} {{ $t('farmer.regionMember') }}</span>
+          <span class="opacity-40">•</span>
+          <span>{{ farmer?.phone || $t('No phone set') }}</span>
+        </p>
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex items-center gap-2 relative z-10 shrink-0">
+      <div class="flex items-center justify-center gap-3 relative z-10 shrink-0 mt-3 w-full max-w-sm">
         <button @click="openEditModal" 
-          class="px-4 py-2.5 bg-white/15 hover:bg-white/25 border border-white/30 text-white rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer backdrop-blur-xs">
+          class="flex-1 py-3 bg-white/15 hover:bg-white/25 border border-white/30 hover:border-white/50 text-white rounded-xl text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer backdrop-blur-md shadow-sm">
           <Edit3 class="w-4 h-4 text-amber-300" />
           <span>{{ $t('Edit Profile') }}</span>
         </button>
         <button @click="openLogoutModal" 
-          class="px-4 py-2.5 bg-red-500/20 hover:bg-red-500/30 border border-red-300/40 text-red-100 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer">
+          class="px-5 py-3 bg-red-500/20 hover:bg-red-500/30 border border-red-300/40 hover:border-red-300/70 text-red-100 rounded-xl text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer backdrop-blur-md shadow-sm">
           <LogOut class="w-4 h-4" />
-          <span>{{ $t('Sign Out') }}</span>
         </button>
       </div>
     </div>

@@ -255,11 +255,11 @@ const regionalDepotsCount = computed(() => {
         if (o.buyer?.deliveryHub) depots.add(o.buyer.deliveryHub)
         if (o.deliveryHub) depots.add(o.deliveryHub)
     })
-    return depots.size || 1
+    return depots.size
 })
 
 const smsDispatchCount = computed(() => {
-    return farmerOrders.value.filter(o => o.status !== 'pending').length * 2
+    return farmerOrders.value.filter(o => o.status !== 'pending' && o.status !== 'placed').length
 })
 
 </script>
