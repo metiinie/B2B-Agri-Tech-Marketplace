@@ -164,8 +164,14 @@
                 <span>Dispute Escrow</span>
               </button>
 
+              <!-- Awaiting Farmer Approval -->
+              <div v-else-if="['placed', 'pending_farmer_approval'].includes(order.status)" class="flex items-center gap-1.5 shrink-0 px-2 py-1 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 rounded-lg">
+                <Clock class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <span class="text-[11px] font-bold text-amber-700 dark:text-amber-300">Awaiting Approval</span>
+              </div>
+
               <!-- Payment Needed -->
-              <div v-else-if="['pending_payment', 'awaiting_buyer_payment', 'placed'].includes(order.status)" class="flex items-center gap-1.5 shrink-0">
+              <div v-else-if="['pending_payment', 'awaiting_buyer_payment', 'accepted'].includes(order.status)" class="flex items-center gap-1.5 shrink-0">
                 <button @click="verifyPayment(order)" 
                   class="px-2.5 py-1.5 bg-white dark:bg-[#161B22] text-[#0B57D0] dark:text-blue-400 border border-[#0B57D0] dark:border-blue-400 rounded-xl text-xs font-bold hover:bg-blue-50 transition-colors shadow-2xs flex items-center gap-1 cursor-pointer">
                   <RefreshCw v-if="isVerifyingPayment === (order.displayId || order.id)" class="w-3.5 h-3.5 animate-spin" />
@@ -433,8 +439,10 @@ const formatStatusLabel = (status) => {
     paid_in_escrow: 'Paid in Escrow',
     awaiting_buyer_payment: 'Awaiting Payment',
     pending_payment: 'Pending Payment',
+    accepted: 'Accepted. Awaiting Pay.',
     in_transit: 'In Transit',
     dispatched: 'Dispatched',
+    placed: 'Awaiting Farmer',
   }
   return map[status] || (status || 'placed').replace(/_/g, ' ')
 }
