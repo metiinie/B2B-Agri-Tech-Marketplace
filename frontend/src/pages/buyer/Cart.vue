@@ -68,7 +68,7 @@
                       {{ formatETB(getItemSubtotal(item)) }}
                     </span>
                     <span class="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 font-medium leading-tight">
-                      {{ formatETB(item.listing?.pricePerKg) }}{{ $t('common.perKg') }}
+                      {{ formatETB(item.listing?.pricePerKg) }}/{{ item.unit || 'kg' }}
                     </span>
                   </div>
                   <button @click="removeFromCart(item.id)" class="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 p-1">
@@ -126,7 +126,7 @@
                 </div>
 
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 block text-right">
-                  {{ $t('marketplace.availableStock') }}: {{ (item.listing?.availableQty || 10000).toLocaleString() }} {{ $t('common.kg') }}
+                  {{ $t('marketplace.availableStock') }}: {{ (item.listing?.availableQty || 10000).toLocaleString() }} {{ item.unit || 'kg' }}
                 </span>
               </div>
             </div>

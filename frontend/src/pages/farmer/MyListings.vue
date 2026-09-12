@@ -30,18 +30,18 @@
         </button>
       </div>
       <div class="flex items-center gap-3 self-end sm:self-auto">
+        <div class="text-xs text-[#5A6270] dark:text-[#8B949E] font-bold shrink-0">
+          {{ $t('farmer.showingActiveItems', { count: filteredListings.length }) }}
+        </div>
         <select 
           v-model="sortBy" 
-          class="px-3 py-1.5 bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] text-xs font-bold rounded-lg text-[#5A6270] dark:text-[#8B949E] focus:outline-none focus:border-[#1E9444]"
+          class="shrink-0 px-3 py-1.5 bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] text-xs font-bold rounded-lg text-[#5A6270] dark:text-[#8B949E] focus:outline-none focus:border-[#1E9444]"
         >
           <option value="newest">{{ $t('Newest First', 'Newest First') }}</option>
           <option value="oldest">{{ $t('Oldest First', 'Oldest First') }}</option>
           <option value="price_asc">{{ $t('Price: Low to High', 'Price: Low to High') }}</option>
           <option value="price_desc">{{ $t('Price: High to Low', 'Price: High to Low') }}</option>
         </select>
-        <div class="text-xs text-[#5A6270] dark:text-[#8B949E] font-bold">
-          {{ $t('farmer.showingActiveItems', { count: filteredListings.length }) }}
-        </div>
       </div>
     </div>
 
@@ -90,16 +90,16 @@
             <!-- Middle: Price, Quantity, MOQ -->
             <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
               <div>
-                <span class="text-[10px] text-[#5A6270] dark:text-[#8B949E] block uppercase font-bold">{{ $t('marketplace.pricePerKg') }}</span>
-                <span class="font-black text-[#1E9444] dark:text-emerald-400">{{ formatETB(item.pricePerKg) }}/{{ $t('kg') }}</span>
+                <span class="text-[10px] text-[#5A6270] dark:text-[#8B949E] block uppercase font-bold">Price / {{ item.unit || 'kg' }}</span>
+                <span class="font-black text-[#1E9444] dark:text-emerald-400">{{ formatETB(item.pricePerKg) }}/{{ item.unit || 'kg' }}</span>
               </div>
               <div class="border-l border-gray-200 dark:border-[#30363D] pl-3">
                 <span class="text-[10px] text-[#5A6270] dark:text-[#8B949E] block uppercase font-bold">{{ $t('marketplace.availableQuantity') }}</span>
-                <span class="font-bold text-[#1E2328] dark:text-[#F0F6FC]">{{ item.availableQty?.toLocaleString() }} kg</span>
+                <span class="font-bold text-[#1E2328] dark:text-[#F0F6FC]">{{ item.availableQty?.toLocaleString() }} {{ item.unit || 'kg' }}</span>
               </div>
               <div class="border-l border-gray-200 dark:border-[#30363D] pl-3">
                 <span class="text-[10px] text-[#5A6270] dark:text-[#8B949E] block uppercase font-bold">MOQ</span>
-                <span class="font-bold text-[#1E2328] dark:text-[#F0F6FC]">{{ item.minOrderQty ? `${item.minOrderQty.toLocaleString()} kg` : '500 kg' }}</span>
+                <span class="font-bold text-[#1E2328] dark:text-[#F0F6FC]">{{ item.minOrderQty ? `${item.minOrderQty.toLocaleString()} ${item.unit || 'kg'}` : `500 ${item.unit || 'kg'}` }}</span>
               </div>
             </div>
 

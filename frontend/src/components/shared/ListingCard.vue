@@ -18,7 +18,7 @@
     <div class="flex items-center gap-3 shrink-0">
       <div class="text-right">
         <span class="text-[15px] font-black text-[#1E9444] dark:text-emerald-400 block">{{ formatETB(listing.pricePerKg) }}</span>
-        <span class="text-[11px] text-[#5A6270] dark:text-[#8B949E] font-medium">{{ $t('common.perKg') }}</span>
+        <span class="text-[11px] text-[#5A6270] dark:text-[#8B949E] font-medium uppercase tracking-wider">Per {{ listing.unit || 'kg' }}</span>
       </div>
       <button type="button" @click.stop="handleCartClick"
         :class="['w-9 h-9 rounded-xl flex items-center justify-center transition-colors shadow-2xs cursor-pointer',
@@ -62,7 +62,7 @@
         <div>
           <span class="text-[16px] font-black text-[#1E9444] dark:text-emerald-400 block leading-none">{{ formatETB(listing.pricePerKg) }}</span>
           <span class="text-[10px] text-[#5A6270] dark:text-[#8B949E] font-bold">
-            {{ listing.availableQty >= 1000 ? `${(listing.availableQty / 1000).toFixed(1)} ${$t('common.tons')}` : `${listing.availableQty} ${$t('common.kg')}` }}
+            {{ listing.availableQty >= 1000 ? `${(listing.availableQty / 1000).toFixed(1)} ${$t('common.tons')}` : `${listing.availableQty?.toLocaleString()} ${listing.unit || 'kg'}` }}
           </span>
         </div>
         <button type="button" @click.stop="handleCartClick"

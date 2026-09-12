@@ -20,11 +20,10 @@ function loadCartFromStorage() {
 export function useCart() {
     if (!isLoaded.value) {
         loadCartFromStorage()
+        watch(cartItems, (val) => {
+            localStorage.setItem('agri_cart_items', JSON.stringify(val))
+        }, { deep: true })
     }
-
-    watch(cartItems, (val) => {
-        localStorage.setItem('agri_cart_items', JSON.stringify(val))
-    }, { deep: true })
 
     const addToCart = (listing, quantityKg = null, unit = 'KG') => {
         const qty = quantityKg || 1

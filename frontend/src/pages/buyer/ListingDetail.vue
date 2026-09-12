@@ -40,11 +40,11 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13px]">
             <div class="bg-[#F8F9FA] dark:bg-[#21262D] p-3 rounded-xl">
               <span class="font-bold text-[#5A6270] dark:text-[#8B949E] block text-[11px]">{{ t('price') }}</span>
-              <span class="font-black text-[#1E9444] dark:text-emerald-400">{{ formatETB(listing.pricePerKg) }}{{ t('perKg') }}</span>
+              <span class="font-black text-[#1E9444] dark:text-emerald-400">{{ formatETB(listing.pricePerKg) }}/{{ listing.unit || 'kg' }}</span>
             </div>
             <div class="bg-[#F8F9FA] dark:bg-[#21262D] p-3 rounded-xl">
               <span class="font-bold text-[#5A6270] dark:text-[#8B949E] block text-[11px]">{{ t('availableStock') }}</span>
-              <span class="font-black text-[#1E2328] dark:text-[#F0F6FC]">{{ listing.availableQty?.toLocaleString() }} kg</span>
+              <span class="font-black text-[#1E2328] dark:text-[#F0F6FC]">{{ listing.availableQty?.toLocaleString() }} {{ listing.unit || 'kg' }}</span>
             </div>
             <div class="bg-[#F8F9FA] dark:bg-[#21262D] p-3 rounded-xl">
               <span class="font-bold text-[#5A6270] dark:text-[#8B949E] block text-[11px]">{{ t('grade') }}</span>

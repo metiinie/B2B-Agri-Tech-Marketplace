@@ -167,8 +167,8 @@
           </div>
           <div class="text-right flex items-center gap-4">
             <div>
-              <span class="text-xs font-black text-[#1E2328] dark:text-[#F0F6FC] block">{{ formatETB(item.pricePerKg) }}/{{ $t('kg') }}</span>
-              <span class="text-[10px] font-bold text-[#1E9444] dark:text-emerald-400">{{ item.availableQty?.toLocaleString() }} {{ $t('kg available') }}</span>
+              <span class="text-xs font-black text-[#1E2328] dark:text-[#F0F6FC] block">{{ formatETB(item.pricePerKg) }}/{{ item.unit || 'kg' }}</span>
+              <span class="text-[10px] font-bold text-[#1E9444] dark:text-emerald-400">{{ item.availableQty?.toLocaleString() }} {{ item.unit || 'kg' }} {{ $t('available') }}</span>
             </div>
             <span class="hidden sm:inline-block px-2.5 py-1 rounded-full text-[10px] font-black bg-[#EDFAF2] dark:bg-emerald-950/40 text-[#0F5C2A] dark:text-emerald-300 border border-[#C3EFCF] dark:border-emerald-800/60">{{ $t('badges.live') }}</span>
           </div>

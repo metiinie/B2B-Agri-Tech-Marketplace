@@ -58,7 +58,7 @@
                   {{ formatETB(getItemSubtotal(item)) }}
                 </span>
                 <span class="text-[11px] text-gray-400 dark:text-gray-500 mt-0.5 font-medium leading-tight">
-                  {{ formatETB(item.listing?.pricePerKg) }}{{ $t('common.perKg') }}
+                  {{ formatETB(item.listing?.pricePerKg) }}/{{ item.unit || 'kg' }}
                 </span>
               </div>
             </div>

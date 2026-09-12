@@ -76,6 +76,7 @@ function mapRawListingToFrontend(item) {
         pricePerKg: Number(item.price_per_unit ?? item.pricePerKg ?? 50),
         availableQty: Number(item.quantity_available ?? item.availableQty ?? 1000),
         minOrderQty: Number(item.min_order_qty ?? item.min_order_quantity ?? item.minOrderQty ?? 100),
+        unit: item.unit || 'kg',
         harvestDate: item.harvest_date ? new Date(item.harvest_date) : new Date(),
         description: item.description || '',
         primaryImage: primaryImg,
@@ -217,7 +218,7 @@ export function useListings() {
                 formData.append('category_id', catId)
 
                 if (newListingData.description) formData.append('description', newListingData.description)
-                formData.append('unit', 'kg')
+                formData.append('unit', newListingData.unit || 'kg')
                 formData.append('price_per_unit', newListingData.pricePerKg || 1)
                 formData.append('quantity_available', newListingData.availableQty || 1)
                 if (newListingData.minOrderQty) formData.append('minimum_order_quantity', newListingData.minOrderQty)
@@ -341,6 +342,7 @@ export function useListings() {
                     if (updatedData.region) payload.append('region', updatedData.region)
                     if (updatedData.zone) payload.append('zone', updatedData.zone)
                     if (updatedData.availableQty) payload.append('quantity_available', updatedData.availableQty)
+                    if (updatedData.unit) payload.append('unit', updatedData.unit)
                     if (updatedData.pricePerKg) payload.append('price_per_unit', updatedData.pricePerKg)
                     if (updatedData.description) payload.append('description', updatedData.description)
                     if (updatedData.category) {
@@ -358,6 +360,7 @@ export function useListings() {
                         region: updatedData.region,
                         zone: updatedData.zone,
                         quantity_available: updatedData.availableQty,
+                        unit: updatedData.unit || 'kg',
                         price_per_unit: updatedData.pricePerKg,
                         description: updatedData.description,
                     }
@@ -389,6 +392,7 @@ export function useListings() {
                 region: updatedData.region || listings.value[idx].region,
                 zone: updatedData.zone || listings.value[idx].zone,
                 availableQty: updatedData.availableQty ?? listings.value[idx].availableQty,
+                unit: updatedData.unit || listings.value[idx].unit,
                 pricePerKg: updatedData.pricePerKg ?? listings.value[idx].pricePerKg,
                 description: updatedData.description ?? listings.value[idx].description,
             }

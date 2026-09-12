@@ -66,7 +66,17 @@
               </select>
             </div>
             <div>
-              <label class="text-[10px] font-extrabold text-gray-500 dark:text-[#8B949E] uppercase tracking-wider block mb-1.5">{{ $t('farmer.pricePerKgETB') }} <span class="text-red-500">*</span></label>
+              <label class="text-[10px] font-extrabold text-gray-500 dark:text-[#8B949E] uppercase tracking-wider block mb-1.5">{{ $t('Unit') }} <span class="text-red-500">*</span></label>
+              <select v-model="unit" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#21262D] border border-gray-200 dark:border-[#30363D] text-[#1E2328] dark:text-[#F0F6FC] rounded-xl text-sm font-bold focus:outline-none focus:border-[#1E9444] focus:bg-white dark:focus:bg-[#161B22] transition-colors cursor-pointer">
+                <option value="kg">KG</option>
+                <option value="Quintals">Quintals</option>
+                <option value="Tonnes">Tonnes</option>
+                <option value="Liters">Liters</option>
+                <option value="Boxes">Boxes</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[10px] font-extrabold text-gray-500 dark:text-[#8B949E] uppercase tracking-wider block mb-1.5">Price / {{ unit }} <span class="text-red-500">*</span></label>
               <div class="relative">
                  <span class="absolute left-3 top-[11px] text-sm font-black text-emerald-600 dark:text-emerald-400">Br</span>
                  <input type="number" v-model.number="pricePerKg" required min="1" step="0.01" placeholder="85.00"
@@ -74,7 +84,7 @@
               </div>
             </div>
             <div>
-              <label class="text-[10px] font-extrabold text-gray-500 dark:text-[#8B949E] uppercase tracking-wider block mb-1.5">{{ $t('farmer.availableQuantityKg') }} (KG) <span class="text-red-500">*</span></label>
+              <label class="text-[10px] font-extrabold text-gray-500 dark:text-[#8B949E] uppercase tracking-wider block mb-1.5">Quantity ({{ unit }}) <span class="text-red-500">*</span></label>
               <input type="number" v-model.number="availableQty" required min="1" placeholder="5000"
                 class="w-full px-4 py-2.5 bg-gray-50 dark:bg-[#21262D] border border-gray-200 dark:border-[#30363D] text-[#1E2328] dark:text-[#F0F6FC] rounded-xl text-sm font-bold focus:outline-none focus:border-[#1E9444] focus:bg-white dark:focus:bg-[#161B22] transition-colors" />
             </div>
@@ -146,6 +156,7 @@ const cropName = ref('')
 const category = ref('coffee')
 const grade = ref('Grade 1')
 const processMethod = ref('Washed')
+const unit = ref('kg')
 const region = ref(user.value?.region || 'Amhara')
 const zone = ref('Awi Zone, Injibara')
 const availableQty = ref(5000)
@@ -234,6 +245,7 @@ const handleSubmit = async () => {
       region: region.value,
       zone: zone.value,
       process: processMethod.value,
+      unit: unit.value,
       pricePerKg: pricePerKg.value || 85,
       availableQty: availableQty.value || 5000,
       minOrderQty: minOrderQty.value || 500,

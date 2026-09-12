@@ -3,30 +3,29 @@
     <div class="space-y-6 pb-6">
       <!-- Top Search Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E4E7] dark:border-[#30363D] pb-5">
-        <!-- Search Input -->
-        <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <div class="w-full sm:w-80">
-            <div class="relative">
-              <Search class="w-4 h-4 text-gray-400 dark:text-gray-500 absolute left-3.5 top-3" />
-              <input 
-                type="text" 
-                v-model="searchQuery" 
-                :placeholder="t('searchPlaceholder')" 
-                class="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] text-[#1E2328] dark:text-[#F0F6FC] placeholder-gray-400 dark:placeholder-gray-500 rounded-xl text-xs font-bold focus:outline-none focus:border-[#E69500] shadow-2xs" 
-              />
-            </div>
+        <!-- Search Input (Left) -->
+        <div class="w-full sm:w-80">
+          <div class="relative">
+            <Search class="w-4 h-4 text-gray-400 dark:text-gray-500 absolute left-3.5 top-3" />
+            <input 
+              type="text" 
+              v-model="searchQuery" 
+              :placeholder="t('searchPlaceholder')" 
+              class="w-full pl-9 pr-4 py-2 bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] text-[#1E2328] dark:text-[#F0F6FC] placeholder-gray-400 dark:placeholder-gray-500 rounded-xl text-xs font-bold focus:outline-none focus:border-[#E69500] shadow-2xs" 
+            />
           </div>
-          <!-- Sort Dropdown -->
-          <select 
-            v-model="sortBy" 
-            class="px-4 py-2 bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] text-[#1E2328] dark:text-[#F0F6FC] rounded-xl text-xs font-bold focus:outline-none focus:border-[#E69500] shadow-2xs"
-          >
-            <option value="newest">{{ t('Newest First', 'Newest First') }}</option>
-            <option value="oldest">{{ t('Oldest First', 'Oldest First') }}</option>
-            <option value="price_asc">{{ t('Price: Low to High', 'Price: Low to High') }}</option>
-            <option value="price_desc">{{ t('Price: High to Low', 'Price: High to Low') }}</option>
-          </select>
         </div>
+
+        <!-- Sort Dropdown (Right edge) -->
+        <select 
+          v-model="sortBy" 
+          class="shrink-0 px-4 py-2 bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] text-[#1E2328] dark:text-[#F0F6FC] rounded-xl text-xs font-bold focus:outline-none focus:border-[#E69500] shadow-2xs cursor-pointer"
+        >
+          <option value="newest">{{ t('Newest First', 'Newest First') }}</option>
+          <option value="oldest">{{ t('Oldest First', 'Oldest First') }}</option>
+          <option value="price_asc">{{ t('Price: Low to High', 'Price: Low to High') }}</option>
+          <option value="price_desc">{{ t('Price: High to Low', 'Price: High to Low') }}</option>
+        </select>
       </div>
 
       <!-- Category Filter Chips -->
@@ -122,7 +121,7 @@ const itemsPerPage = 6
 
 
 const categories = [
-  { value: 'all', key: 'allCrops', label: 'All Crops', emoji: '🌾', image: null },
+  { value: 'all', key: 'allCrops', label: 'All Crops', emoji: '🌾', image: CATEGORY_PHOTOS.grains },
   { value: 'coffee', key: 'coffee', label: 'Coffee', emoji: '☕', image: CATEGORY_PHOTOS.coffee },
   { value: 'grains', key: 'grains', label: 'Grains', emoji: '🌾', image: CATEGORY_PHOTOS.grains },
   { value: 'spices', key: 'spices', label: 'Spices', emoji: '🌶️', image: CATEGORY_PHOTOS.spices },

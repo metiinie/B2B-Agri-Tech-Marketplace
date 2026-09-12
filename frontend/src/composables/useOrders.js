@@ -1,5 +1,9 @@
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { api, getAuthToken } from '@/services/api'
+
+const globalOrders = ref([])
+const isLoaded = ref(false)
+let isFetching = false
 
 function getCurrentUserData() {
     try {
@@ -133,12 +137,21 @@ function loadOrdersFromStorage() {
 }
 
 export function useOrders() {
-    const orders = ref(loadOrdersFromStorage())
+    if (!isLoaded.value) {
+        globalOrders.value = loadOrdersFromStorage()
+        isLoaded.value = true
+        watch(globalOrders, (val) => {
+            localStorage.setItem('agri_orders', JSON.stringify(val))
+        }, { deep: true })
+    }
+
+    const orders = globalOrders
 
     const refreshOrders = async () => {
         const token = getAuthToken()
-        if (!token) return
+        if (!token || isFetching) return
 
+        isFetching = true
         try {
             const user = getCurrentUserData()
             const role = user?.activeRole || user?.role || 'buyer'
@@ -151,15 +164,15 @@ export function useOrders() {
             orders.value = rawItems.map(mapRawOrderToFrontend)
         } catch {
             // Keep user-scoped filtered list if offline
+        } finally {
+            isFetching = false
         }
     }
 
-    watch(orders, (val) => {
-        localStorage.setItem('agri_orders', JSON.stringify(val))
-    }, { deep: true })
-
     onMounted(() => {
-        refreshOrders()
+        if (orders.value.length === 0) {
+            refreshOrders()
+        }
     })
 
     const placeOrder = (listing, buyer, quantityKg) => {

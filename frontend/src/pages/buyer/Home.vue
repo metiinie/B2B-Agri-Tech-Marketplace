@@ -17,7 +17,7 @@
     </div>
 
     <!-- 4 High-Impact Metric Cards -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
       <div class="bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-md transition-shadow relative overflow-hidden group">
         <div class="flex items-center justify-between">
           <span class="text-[11px] font-bold text-[#5A6270] dark:text-[#8B949E] uppercase tracking-wider">{{ $t('buyer.activeOrders') }}</span>
@@ -64,7 +64,7 @@
             <Bookmark class="w-4 h-4" />
           </div>
         </div>
-        <p class="text-2xl sm:text-3xl font-black text-[#1E2328] dark:text-[#F0F6FC] mt-2">{{ dashboardStats.cart_items_count }}</p>
+        <p class="text-2xl sm:text-3xl font-black text-[#1E2328] dark:text-[#F0F6FC] mt-2">{{ cartItems.length }}</p>
         <p class="mt-2 text-[11px] font-semibold text-amber-700 dark:text-amber-300">{{ $t('cart.title') }}</p>
       </div>
     </div>
@@ -93,12 +93,14 @@ import { ref, computed, onMounted } from 'vue'
 import { ShoppingCart, Wallet, Users, Bookmark, Building2 } from 'lucide-vue-next'
 import { useAuth } from '@/composables/useAuth'
 import { useListings } from '@/composables/useListings'
+import { useCart } from '@/composables/useCart'
 import { api } from '@/services/api'
 import { formatETB } from '@/utils/helpers'
 import ListingCard from '@/components/shared/ListingCard.vue'
 
 const { user } = useAuth()
 const { listings } = useListings()
+const { cartItems } = useCart()
 
 const firstName = computed(() => {
   return user.value?.name?.split(' ')[0] || 'Buyer'
