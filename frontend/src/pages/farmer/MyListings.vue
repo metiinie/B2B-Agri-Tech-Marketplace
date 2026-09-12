@@ -29,8 +29,19 @@
           {{ $t('farmer.pendingReview') }} (0)
         </button>
       </div>
-      <div class="text-xs text-[#5A6270] dark:text-[#8B949E] font-bold self-end sm:self-auto">
-        {{ $t('farmer.showingActiveItems', { count: filteredListings.length }) }}
+      <div class="flex items-center gap-3 self-end sm:self-auto">
+        <select 
+          v-model="sortBy" 
+          class="px-3 py-1.5 bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] text-xs font-bold rounded-lg text-[#5A6270] dark:text-[#8B949E] focus:outline-none focus:border-[#1E9444]"
+        >
+          <option value="newest">{{ $t('Newest First', 'Newest First') }}</option>
+          <option value="oldest">{{ $t('Oldest First', 'Oldest First') }}</option>
+          <option value="price_asc">{{ $t('Price: Low to High', 'Price: Low to High') }}</option>
+          <option value="price_desc">{{ $t('Price: High to Low', 'Price: High to Low') }}</option>
+        </select>
+        <div class="text-xs text-[#5A6270] dark:text-[#8B949E] font-bold">
+          {{ $t('farmer.showingActiveItems', { count: filteredListings.length }) }}
+        </div>
       </div>
     </div>
 
@@ -148,6 +159,7 @@ const { listings, deleteListing, refreshListings } = useListings()
 const { user } = useAuth()
 const farmer = computed(() => user.value)
 const statusFilter = ref('all')
+const sortBy = ref('newest')
 
 const currentPage = ref(1)
 const itemsPerPage = 6
@@ -201,11 +213,31 @@ const farmerListings = computed(() => {
   )
 })
 const displayListings = computed(() => farmerListings.value.length > 0 ? farmerListings.value : listings.value.slice(0, 4))
-const filteredListings = computed(() => displayListings.value.filter(l => {
-  if (statusFilter.value === 'live') return l.isActive
-  if (statusFilter.value === 'pending') return !l.isActive
-  return true
-}))
+const filteredListings = computed(() => {
+  let result = displayListings.value.filter(l => {
+    if (statusFilter.value === 'live') return l.isActive
+    if (statusFilter.value === 'pending') return !l.isActive
+    return true
+  })
+
+  switch (sortBy.value) {
+    case 'oldest':
+      result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      break;
+    case 'price_asc':
+      result.sort((a, b) => a.pricePerKg - b.pricePerKg)
+      break;
+    case 'price_desc':
+      result.sort((a, b) => b.pricePerKg - a.pricePerKg)
+      break;
+    case 'newest':
+    default:
+      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      break;
+  }
+
+  return result
+})
 
 const totalPages = computed(() => Math.ceil(filteredListings.value.length / itemsPerPage) || 1)
 
@@ -214,8 +246,8 @@ const paginatedListings = computed(() => {
   return filteredListings.value.slice(start, start + itemsPerPage)
 })
 
-// Reset to page 1 when filter changes
-watch(statusFilter, () => {
+// Reset to page 1 when filter or sort changes
+watch([statusFilter, sortBy], () => {
   currentPage.value = 1
 })
 </script>

@@ -292,8 +292,8 @@ export function useListings() {
         return listings.value.find((item) => String(item.id) === String(id))
     }
 
-    const filterListings = (category, query) => {
-        return listings.value.filter((item) => {
+    const filterListings = (category, query, sortBy = 'newest') => {
+        let result = listings.value.filter((item) => {
             const matchCat = !category || category === 'all' || item.category === category
             const matchQuery =
                 !query ||
@@ -303,6 +303,24 @@ export function useListings() {
                 item.grade.toLowerCase().includes(query.toLowerCase())
             return matchCat && matchQuery
         })
+
+        switch (sortBy) {
+            case 'oldest':
+                result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                break;
+            case 'price_asc':
+                result.sort((a, b) => a.pricePerKg - b.pricePerKg)
+                break;
+            case 'price_desc':
+                result.sort((a, b) => b.pricePerKg - a.pricePerKg)
+                break;
+            case 'newest':
+            default:
+                result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                break;
+        }
+
+        return result
     }
 
     const updateListing = async (id, updatedData) => {

@@ -14,6 +14,8 @@
         </div>
 
         <div class="flex items-center gap-4">
+          <ThemeToggle />
+          <LanguageToggle />
           <template v-if="token">
             <router-link :to="dashboardRoute" class="text-sm font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-full hover:bg-[#0B57D0] dark:hover:bg-blue-500 hover:text-white transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 duration-300 flex items-center gap-2">
               Go to Dashboard
@@ -202,6 +204,8 @@ import { useRouter } from 'vue-router'
 import { useListings } from '@/composables/useListings'
 import ListingCard from '@/components/shared/ListingCard.vue'
 import QelemMedaLogo from '@/components/common/QelemMedaLogo.vue'
+import ThemeToggle from '@/components/common/ThemeToggle.vue'
+import LanguageToggle from '@/components/common/LanguageToggle.vue'
 
 const router = useRouter()
 const { listings, isLoading: isLoadingListings } = useListings()
