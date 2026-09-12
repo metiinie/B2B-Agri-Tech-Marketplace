@@ -2,13 +2,18 @@
   <div class="space-y-6 max-w-4xl pb-6">
     <!-- Top Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E4E7] dark:border-[#30363D] pb-4">
-      <div>
-        <h1 class="text-2xl font-black text-[#1E2328] dark:text-[#F0F6FC] tracking-tight">
-          {{ $t('buyer.profileTitle') }} 👤
-        </h1>
-        <p class="text-xs text-[#5A6270] dark:text-[#8B949E] mt-0.5">
-          {{ $t('buyer.profileSub') }}
-        </p>
+      <div class="flex items-center gap-3">
+        <button @click="$router.back()" class="w-9 h-9 rounded-xl border border-[#E2E4E7] dark:border-[#30363D] flex items-center justify-center hover:bg-[#F0F1F2] dark:hover:bg-[#21262D] transition-colors bg-white dark:bg-[#161B22] shadow-2xs">
+          <ArrowLeft class="w-5 h-5 text-[#1E2328] dark:text-[#F0F6FC]" />
+        </button>
+        <div>
+          <h1 class="text-2xl font-black text-[#1E2328] dark:text-[#F0F6FC] tracking-tight">
+            {{ $t('buyer.profileTitle') }} 👤
+          </h1>
+          <p class="text-xs text-[#5A6270] dark:text-[#8B949E] mt-0.5">
+            {{ $t('buyer.profileSub') }}
+          </p>
+        </div>
       </div>
 
       <div class="flex items-center gap-2">
@@ -316,7 +321,7 @@
 import { ref, reactive } from 'vue'
 import { 
   ShieldCheck, Phone, Building2, CreditCard, Edit3, LogOut, 
-  Camera, Wallet, Clock, X, User, Key, UserCheck, AlertCircle, CheckCircle2, Loader2 
+  Camera, Wallet, Clock, X, User, Key, UserCheck, AlertCircle, CheckCircle2, Loader2, ArrowLeft 
 } from 'lucide-vue-next'
 import { useAuth } from '@/composables/useAuth'
 import { api } from '@/services/api'

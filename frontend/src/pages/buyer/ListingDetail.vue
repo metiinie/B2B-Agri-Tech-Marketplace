@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="space-y-6 max-w-3xl">
-      <button @click="$router.back()" class="text-[13px] text-[#1E9444] dark:text-emerald-400 font-bold hover:underline cursor-pointer">{{ t('backToMarketplace') }}</button>
+      <div class="flex items-center gap-3 mb-2">
+        <button @click="$router.back()" class="w-9 h-9 rounded-xl border border-[#E2E4E7] dark:border-[#30363D] flex items-center justify-center hover:bg-[#F0F1F2] dark:hover:bg-[#21262D] transition-colors bg-white dark:bg-[#161B22] shadow-2xs">
+          <ArrowLeft class="w-5 h-5 text-[#1E2328] dark:text-[#F0F6FC]" />
+        </button>
+        <span class="text-xs font-bold text-[#5A6270] dark:text-[#8B949E] uppercase tracking-wider">{{ t('backToMarketplace') }}</span>
+      </div>
 
       <div v-if="listing" class="bg-white dark:bg-[#161B22] border border-[#E2E4E7] dark:border-[#30363D] rounded-2xl overflow-hidden shadow-sm">
         
@@ -134,7 +139,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { User, UserPlus, Phone, CreditCard, ShieldCheck, Building2 } from 'lucide-vue-next'
+import { User, UserPlus, Phone, CreditCard, ShieldCheck, Building2, ArrowLeft } from 'lucide-vue-next'
 import { useListings } from '@/composables/useListings'
 import { useAuth } from '@/composables/useAuth'
 import { useLanguage } from '@/composables/useLanguage'

@@ -1,5 +1,11 @@
 <template>
   <div class="w-full flex flex-col min-h-full pb-8 max-w-5xl mx-auto space-y-5">
+    <div class="flex items-center gap-3">
+      <button @click="$router.back()" class="w-9 h-9 rounded-xl border border-[#E2E4E7] dark:border-[#30363D] flex items-center justify-center hover:bg-[#F0F1F2] dark:hover:bg-[#21262D] transition-colors bg-white dark:bg-[#161B22] shadow-2xs">
+        <ArrowLeft class="w-5 h-5 text-[#1E2328] dark:text-[#F0F6FC]" />
+      </button>
+      <span class="text-xs font-bold text-[#5A6270] dark:text-[#8B949E] uppercase tracking-wider">{{ $t('Back') }}</span>
+    </div>
     <!-- Top Header Banner -->
     <div class="bg-gradient-to-r from-[#062E15] via-[#0F5C2A] to-[#0B57D0] text-white p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#E69500]/20 rounded-full blur-2xl pointer-events-none" />
@@ -307,7 +313,7 @@
 import { ref, reactive, computed } from 'vue'
 import { 
   ShieldCheck, Phone, Edit3, LogOut, Camera, X, User, Key, 
-  UserCheck, AlertCircle, CheckCircle2, Loader2, Sprout, CreditCard 
+  UserCheck, AlertCircle, CheckCircle2, Loader2, Sprout, CreditCard, ArrowLeft 
 } from 'lucide-vue-next'
 import { useAuth } from '@/composables/useAuth'
 import { api } from '@/services/api'
