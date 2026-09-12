@@ -207,7 +207,7 @@ import { formatETB } from '@/utils/helpers'
 const route = useRoute()
 const router = useRouter()
 const { getListingById, listings } = useListings()
-const { placeOrder } = useOrders()
+const { refreshOrders } = useOrders()
 const { user } = useAuth()
 const { selectedItems, cartItems, updateQuantity, updateUnit, getItemSubtotal, clearCart } = useCart()
 const { showAlert } = useAlertModal()
@@ -320,9 +320,9 @@ const handleCheckout = async () => {
       orderId = checkoutRes.order.id
     }
 
-    // 2. Clear cart & route to orders tracking page
+    // Sync global orders state from backend so the new order appears immediately
+    await refreshOrders()
 
-    // 3. Clear cart & route to orders tracking page
     clearCart()
     router.push('/buyer/orders')
   } catch (err) {

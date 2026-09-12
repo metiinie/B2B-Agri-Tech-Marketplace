@@ -163,6 +163,10 @@ export const api = {
         return request('/orders')
     },
 
+    async cancelOrder(orderId) {
+        return request(`/orders/${orderId}`, { method: 'DELETE' })
+    },
+
     async checkoutOrder(payload) {
         return request('/orders/checkout', {
             method: 'POST',

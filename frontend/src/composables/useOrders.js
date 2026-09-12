@@ -281,6 +281,15 @@ export function useOrders() {
         })
     }
 
+    const cancelOrder = async (orderId) => {
+        try {
+            await api.cancelOrder(orderId)
+        } catch {
+            // Offline/backend omit fallback, just delete locally
+        }
+        globalOrders.value = globalOrders.value.filter(o => String(o.id) !== String(orderId) && String(o.displayId) !== String(orderId))
+    }
+
     const dispatchOrder = (orderId) => {
         updateOrderStatus(orderId, 'dispatched', 'Shipment dispatched to destination')
     }
@@ -289,6 +298,7 @@ export function useOrders() {
         orders,
         refreshOrders,
         placeOrder,
+        cancelOrder,
         confirmDelivery,
         updateOrderStatus,
         dispatchOrder,

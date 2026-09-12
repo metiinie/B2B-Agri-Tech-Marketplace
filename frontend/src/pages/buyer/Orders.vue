@@ -162,25 +162,25 @@
                 title="Report Quality/Delivery Issue">
                 <AlertTriangle class="w-3.5 h-3.5" />
                 <span>Dispute Escrow</span>
-              </button>
+              <div v-else-if="['pending_payment', 'awaiting_buyer_payment', 'accepted', 'placed', 'pending_farmer_approval'].includes(order.status)" class="flex items-center gap-1.5 shrink-0">
+                <!-- Delete Action -->
+                <button @click="handleDeleteOrder(order)" class="p-2 text-rose-400 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-900/40 rounded-xl transition-colors cursor-pointer" title="Cancel/Delete Order">
+                  <Trash2 class="w-4 h-4" />
+                </button>
 
-              <!-- Awaiting Farmer Approval -->
-              <div v-else-if="['placed', 'pending_farmer_approval'].includes(order.status)" class="flex items-center gap-1.5 shrink-0 px-2 py-1 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 rounded-lg">
-                <Clock class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-                <span class="text-[11px] font-bold text-amber-700 dark:text-amber-300">Awaiting Approval</span>
-              </div>
-
-              <!-- Payment Needed -->
-              <div v-else-if="['pending_payment', 'awaiting_buyer_payment', 'accepted'].includes(order.status)" class="flex items-center gap-1.5 shrink-0">
                 <button @click="verifyPayment(order)" 
                   class="px-2.5 py-1.5 bg-white dark:bg-[#161B22] text-[#0B57D0] dark:text-blue-400 border border-[#0B57D0] dark:border-blue-400 rounded-xl text-xs font-bold hover:bg-blue-50 transition-colors shadow-2xs flex items-center gap-1 cursor-pointer">
                   <RefreshCw v-if="isVerifyingPayment === (order.displayId || order.id)" class="w-3.5 h-3.5 animate-spin" />
                   <span v-else>Verify</span>
                 </button>
+
                 <button @click="handlePayment(order)" 
-                  class="px-3 py-1.5 bg-[#0B57D0] text-white rounded-xl text-xs font-bold hover:bg-blue-800 transition-colors shadow-2xs flex items-center gap-1 cursor-pointer">
+                  :disabled="order.status !== 'accepted'"
+                  :class="['px-3 py-1.5 rounded-xl text-xs font-bold transition-colors shadow-2xs flex items-center gap-1 cursor-pointer',
+                    order.status !== 'accepted' ? 'bg-gray-100 dark:bg-[#21262D] text-[#5A6270] dark:text-[#8B949E] border border-[#E2E4E7] dark:border-[#30363D] cursor-not-allowed opacity-70' : 'bg-[#0B57D0] text-white hover:bg-[#09429E]'
+                  ]">
                   <CreditCard class="w-3.5 h-3.5" />
-                  <span>{{ isProcessingPayment === (order.displayId || order.id) ? '...' : 'Pay Chapa' }}</span>
+                  <span>{{ isProcessingPayment === (order.displayId || order.id) ? '...' : (order.status !== 'accepted' ? 'Awaiting Farmer' : 'Pay Chapa') }}</span>
                 </button>
               </div>
 
@@ -334,7 +334,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { Store, ShieldCheck, CheckCircle2, Package, Truck, Key, Search, ChevronDown, X, CreditCard, Clock, RefreshCw, ShieldAlert, AlertTriangle, Loader2 } from 'lucide-vue-next'
+import { Store, ShieldCheck, CheckCircle2, Package, Truck, Key, Search, ChevronDown, X, CreditCard, Clock, RefreshCw, ShieldAlert, AlertTriangle, Loader2, Trash2 } from 'lucide-vue-next'
 import { useOrders } from '@/composables/useOrders'
 import { useAlertModal } from '@/composables/useAlertModal'
 import { formatETB } from '@/utils/helpers'
@@ -342,7 +342,7 @@ import { api } from '@/services/api'
 import OrderTimeline from '@/components/shared/OrderTimeline.vue'
 import Pagination from '@/components/common/Pagination.vue'
 
-const { orders, confirmDelivery, refreshOrders } = useOrders()
+const { orders, confirmDelivery, refreshOrders, cancelOrder } = useOrders()
 const { showAlert } = useAlertModal()
 
 const activeTab = ref('all')
@@ -513,6 +513,19 @@ const handlePayment = async (order) => {
     })
   } finally {
     isProcessingPayment.value = null
+  }
+}
+
+const handleDeleteOrder = async (order) => {
+  const targetId = order.displayId || order.id
+  if (confirm(`Are you sure you want to cancel and delete order #${targetId}?`)) {
+    try {
+      await cancelOrder(order.id)
+      await refreshOrders()
+      showAlert({ title: 'Order Cancelled', message: 'The order has been removed from your manifest.', type: 'success' })
+    } catch (err) {
+      showAlert({ title: 'Delete Failed', message: 'Failed to cancel order.', type: 'error' })
+    }
   }
 }
 
