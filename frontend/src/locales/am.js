@@ -533,7 +533,7 @@ export default {
     referenceOrder: 'አግባብ ያለው ትዕዛዝ #{id}',
     needsAction: 'እርምጃ ያስፈልጋል',
     claimType: 'የአቤቱታ ዓይነት',
-    filedBy: 'Filed By',
+    filedBy: 'የቀረበው በ',
     generalException: 'አጠቃላይ ችግር',
     systemAutoFlag: 'የስርዓቱ ራስ-ሰር ምልክት',
     incidentDetailReport: 'የክስተቱ ዝርዝር ሪፖርት',
